@@ -35,8 +35,9 @@
 				FilesController::upload($link);
 			} else if ($_GET["param1"] == "logout") {
 				LogInController::logout();
-			}
-			else {
+			} else if ($_GET["param1"] == "posts"){
+				PostsController::index();
+			} else {
 				echo "wrong url";
 			}
 

@@ -108,32 +108,6 @@
           </div>
         </div>
       </div>
-      <?php foreach($feed as $post){ ?>
-        <?php 
-        $disable = '';
-        if($post['is_like']){
-          $disable = 'disabled title="You have already liked that"';
-        }
-        ?>
-        <div class="w3-container w3-card w3-white w3-round w3-margin" style="padding-bottom: 60px;"><br>
-          <img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-          <span class="w3-right w3-opacity"><?php echo $post['date_parsed'] ?></span>
-          <h4><?php echo $post['nickname'] ?></h4><br>
-          <hr class="w3-clear">
-          <p><?php echo $post['opis'] ?></p>
-          <button <?php echo $disable; ?> data-id_post = "<?php echo $post['id_file_post'];?>" type="button" class="like w3-button w3-theme-d1 w3-margin-bottom" style="width: 100%"><i class="fa fa-thumbs-up"> <?php echo $post['like_count'] ?></i></button> 
-          <button  type="button" class="w3-button w3-theme-d2 w3-margin-bottom" style="width: 100%"><i class="fa fa-comment"></i>  Comment</button>
-          <div style="width: 100%" >
-            <?php foreach($post['tags'] as $tag){?>
-              <span style="padding: 10px;
-            background-color: #97b5c4 !important; margin-left: 10px;">
-              <?php if($tag) echo $tag; ?>
-              </span>
-            <?php  } ?>
-          </div> 
-        </div>
-      <!-- End Middle Column -->
-      <?php } ?>
 
     </div>
     
@@ -196,22 +170,38 @@
 
 <?php include "Views/Layout/Lower.php" ?>
 <script>
-    $(document).on( "click", ".like", function() {
-      var id_post_file = $(this).attr("data-id_post");
-      btn = $(this);
-        $.ajax({
+      /*json = <?php echo $json?>;
+      tags = json['tags'];
+      subject = json['subject'];
+      year = json['year'];
+      school = json['school'];*/
+      append_posts();
+      function append_posts(){
+          $.ajax({
             url: "?param1=common-ajax",
             dataType: "json",
             method: 'POST',
             type: 'json',
             data: {
-              action : 'add-like',
-              id_post_file : id_post_file,
-              id_person : <?php echo $user_id; ?>
+              action : 'sort-posts',
             },
             success: function (data) {
-              console.log("dodano");
+                $('#select_smer').remove();
+              var html = '';
+              html += '<select id ="select_smer" name="smer">'
+              html += '<option value = "0"> No program </option>'
+                $.each(data.obj, function( index, value ) {
+                html += '<option value = "'+value.smer+'"> '+value.smer+' </option>'
+                });
+                $('#smer').append(html);
+
+                $('#select_year').remove();
+                html = '<select id ="select_year" name="year">';
+        for (i = 1; i <= 4; i++) { 
+                html += '<option value = "'+i+'"> '+i+' year </option>'
+              }
+                $('#year').append(html);
             },
         });
-    });
+      }
 </script>

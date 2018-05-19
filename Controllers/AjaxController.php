@@ -2,14 +2,17 @@
 
 	include "Models\\LogInModel.php";
 	include "Models\\HomeModel.php";
+	include "Models\\PostsModel.php";
+
 	class AjaxController {
 
 		public static function common_ajax($link) {
+			$user_id = $_SESSION['user_id'];
 			$action = $_POST['action'];
 			if($action == 'get-programs-by-school'){
 				$model = new LogInModel();
 				$programs = $model->_get_programs($link,intval($_POST['school_id']));
-				    echo json_encode([
+			    echo json_encode([
 			        'status' => 1,
 			        'obj' => $programs
 			    ]);
@@ -18,6 +21,13 @@
 				$model = new HomeModel();
 				$model->add_like($link);
 
+			} else if ($action == 'sort-posts') {
+				$model = new PostsModel();
+				$obj = $model->sort_posts($link,$user_id);
+			    echo json_encode([
+			        'status' => 1,
+			        'obj' => $obj
+			    ]);
 			}
 		}
 	}
