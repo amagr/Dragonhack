@@ -5,10 +5,14 @@
 	});
 
 	if(!isset($_SESSION["user_id"])) {
-		if(isset($_POST["login"])) {
-			LogInController::login($link);
-		} else {
-			LogInController::index();
+		if (!isset($_GET["param1"]) || (isset($_GET["param1"]) && $_GET["param1"] == "")) {
+			if(isset($_POST["login"])) {
+				LogInController::login($link);
+			} else {
+				LogInController::index();
+			}
+		} else if(isset($_GET["param1"]) && ($_GET["param1"] == "register")) {
+				LogInController::registration($link);
 		}
 	} else {
 		if (isset($_GET["param1"])) {
