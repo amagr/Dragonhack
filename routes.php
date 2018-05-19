@@ -27,7 +27,7 @@
 				HomeController::index($link);
 			} else if ($_GET["param1"] == "files") {
 				if ($_GET["param2"] == "upload") {
-					FilesController::uploadFiles();
+					FilesController::uploadFiles($link);
 				} else {	
 					FilesController::index();
 				}

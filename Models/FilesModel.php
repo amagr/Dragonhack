@@ -1,15 +1,17 @@
 <?php 
 	class FilesModel {
 		public function upload($link) {
-
-
 			$storeFolder = 'files\\others';  
+
+			// print_r($_POST);die;
  
 			if (!empty($_FILES)) {
 				$type = explode("/", $_FILES['file']['type']);
 				$type = $type[count($type)-1];
 
 				$date = date('Y-m-d');
+
+				$id_person = $_SESSION['user_id'];
 
 				$sql = "INSERT INTO `file_post`
 				(
@@ -23,12 +25,12 @@
 				`date`
 				)
 				VALUES
-				('".$_POST['post_name']."',
-				'".$_POST['opis']."',
-				".$_POST['id_school'].",
-				".$_POST['year'].",
-				".$_POST['id_subject'].",
-				".$_POST['id_person'].",
+				('".$_POST['post_name_hidden']."',
+				'".$_POST['opis_hidden']."',
+				".$_POST['id_school_hidden'].",
+				".$_POST['year_hidden'].",
+				".$_POST['id_subject_hidden'].",
+				".$id_person.",
 				'".$type."',
 				'".$date."')";
 
