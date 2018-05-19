@@ -31,7 +31,9 @@
 				} else {	
 					FilesController::index();
 				}
-			}  else if ($_GET["param1"] == "logout") {
+			} else if ($_GET["param1"] == "file-upload") {
+				FilesController::upload($link);
+			} else if ($_GET["param1"] == "logout") {
 				LogInController::logout();
 			}
 			else {
