@@ -29,6 +29,10 @@
 				<option value="<?=$row['id_subject']?>"><?=$row['name']?></option>
 			<?php } ?>
 		</select>
+		
+		<input style="margin-bottom: 10px;" type="text" name = "add_tags" id="add_tags" class="form-control" placeholder="Add tags"><br>
+
+		<div id="tags_container" style="margin-bottom: 15px; margin-top: 10px;"></div>
 
 		<form action="/?param1=file-upload" class="dropzone" id="my-awesome-dropzone">
 			<input type="hidden" name="id_subject_hidden" id="id_subject_hidden" value="-1">
@@ -38,6 +42,7 @@
 			<input type="hidden" name="id_school_hidden" id="id_school_hidden" value="-1">
 			<input type="hidden" name="year_hidden" id="year_hidden" value="">
 		</form>
+		<div id="tagged_container" style="margin-bottom: 15px; margin-top: 10px;"></div>
 	</div>
 </div>
 
@@ -45,11 +50,16 @@
 
 // $('#my-awesome-dropzone').hide();
 
+var tags = [];
+
 Dropzone.options.myAwesomeDropzone = {
+  sending: function(file, xhr, formData) {
+	formData.append('tags', tags);
+  },
   paramName: "file", 
   maxFilesize: 10,
   accept: function(file, done) {
-    console.log("dela");
+    console.log(file);
 
     done();
   }
@@ -60,6 +70,69 @@ $('#post_name').on('keyup', function(e) {
 	$('#post_name_hidden').val(val);
 });
 
+$('#add_tags').on('keyup', function(e) {
+	var term = $(this).val();
+
+	if (term.length > 2) {
+		$.ajax({
+	        url: "?param1=common-ajax",
+	        dataType: "json",
+	        method: 'POST',
+	        type: 'json',
+	        data: {
+	        	action : 'get-tags',
+	            term: term,
+	        },
+	        success: function (data) {
+	          	
+	        	var html = '';
+
+	            $.each(data.obj, function( index, value ) {
+	            	html += '<span class="js-add-tag" data-id="'+value.id_tag+'" style="padding: 10px; background-color: #97b5c4 !important; margin-right: 10px">'+value.name_tag+'</span>'
+	            });
+
+	          	$('#tags_container').html(html);
+	        },
+	    });
+	} else {
+		$('#tags_container').html('');
+	}
+});
+
+$('#tags_container').on('click', '.js-add-tag', function(e) {
+	var tag = $(this).text();
+	// var html = $(this).html();
+
+	var id_tag = $(this).data('id');
+
+	if (id_tag == -1) {
+		// console.log(tag.split('Dodaj: '));
+		tag = tag.split('Dodaj: ')[1];
+		$(this).text(tag);
+
+		$.ajax({
+	        url: "?param1=common-ajax",
+	        dataType: "json",
+	        method: 'POST',
+	        type: 'json',
+	        data: {
+	        	action : 'add-tag',
+	            tag: tag,
+	        }
+	    });
+	}
+
+	tags.push(tag);
+
+	console.log(tags);
+
+	$(this).removeClass('js-add-tag');
+	// console.log(html);
+	$('#add_tags').val('');
+	$('#tags_container').html('');
+	$('#tagged_container').append($(this));
+});
+
 $('#opis').on('keyup', function(e) {
 	var val = $(this).html();
 	$('#opis_hidden').val(val);
@@ -67,7 +140,7 @@ $('#opis').on('keyup', function(e) {
 
 $('#id_school').on('change', function(e) {
 	var val = $(this).val();
-	console.log(val);
+	// console.log(val);
 	$('#id_school_hidden').val(val);
 });
 

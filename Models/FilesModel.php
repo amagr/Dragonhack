@@ -41,6 +41,23 @@
 
 				$row = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
+				$tags = explode(",", $_POST['tags']);
+
+				// print_r($tags);die;
+
+				foreach ($tags as $tag) {
+					$sql = "INSERT INTO `tag_on_files`
+					(
+					`name_tag`,
+					`id_file_post`
+					)
+					VALUES
+					('".$tag."',
+					".$row['id_file_post'].")";
+
+					mysqli_query($link, $sql);
+				}
+
 				$name = 'file_'.$row['id_file_post'];
 				
 			    $tempFile = $_FILES['file']['tmp_name'];                      

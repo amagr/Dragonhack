@@ -3,6 +3,7 @@
 	include "Models\\LogInModel.php";
 	include "Models\\HomeModel.php";
 	include "Models\\PostsModel.php";
+	include "Models\\TagsModel.php";
 
 	class AjaxController {
 
@@ -20,6 +21,21 @@
 			   
 				$model = new HomeModel();
 				$model->add_like($link);
+
+			} else if($action == 'get-tags'){
+			   
+				$model = new TagsModel();
+				$tags = $model->getTags($link, $_POST['term']);
+
+				echo json_encode([
+			        'status' => 1,
+			        'obj' => $tags
+			    ]);
+
+			} else if($action == 'add-tag'){
+			   
+				$model = new TagsModel();
+				$model->addTag($link, $_POST['tag']);
 
 			} else if ($action == 'sort-posts') {
 				$model = new PostsModel();
