@@ -11,7 +11,6 @@
 			$homeModel = new HomeModel();
 			$person = $homeModel->getPerson($link,$user_id);
 			$feed = $homeModel->getFeed($link,$user_id);
-
 			include "Views/Home/index.php";
 		}
 	}

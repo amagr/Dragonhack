@@ -108,48 +108,26 @@
           </div>
         </div>
       </div>
-      
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">1 min</span>
-        <h4>John Doe</h4><br>
-        <hr class="w3-clear">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <div class="w3-row-padding" style="margin:0 -16px">
-            <div class="w3-half">
-              <img src="/w3images/lights.jpg" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
-            </div>
-            <div class="w3-half">
-              <img src="/w3images/nature.jpg" style="width:100%" alt="Nature" class="w3-margin-bottom">
-          </div>
+      <?php foreach($feed as $post){ ?>
+        <?php 
+        $disable = '';
+        if($post['is_like']){
+          $disable = 'disabled title="You have already liked that"';
+        }
+        ?>
+        <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+          <img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+          <span class="w3-right w3-opacity"><?php echo $post['date_parsed'] ?></span>
+          <h4><?php echo $post['nickname'] ?></h4><br>
+          <hr class="w3-clear">
+          <p><?php echo $post['opis'] ?></p>
+          <button <?php echo $disable; ?> data-id_post = "<?php echo $post['id_file_post'];?>" type="button" class="like w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"> <?php echo $post['like_count'] ?></i></button> 
+          <button  type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
+          <div style="width: 100%">tegi</div> 
         </div>
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div>
-      
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="/w3images/avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">16 min</span>
-        <h4>Jane Doe</h4><br>
-        <hr class="w3-clear">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div>  
+      <!-- End Middle Column -->
+      <?php } ?>
 
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">32 min</span>
-        <h4>Angie Jane</h4><br>
-        <hr class="w3-clear">
-        <p>Have you seen this?</p>
-        <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div> 
-      
-    <!-- End Middle Column -->
     </div>
     
     <!-- Right Column -->
@@ -159,7 +137,6 @@
           <p>Upcoming Events:</p>
           <img src="/w3images/forest.jpg" alt="Forest" style="width:100%;">
           <p><strong>Holiday</strong></p>
-          <p>Friday 15:00</p>
           <p><button class="w3-button w3-block w3-theme-l4">Info</button></p>
         </div>
       </div>
@@ -211,3 +188,23 @@
 </footer>
 
 <?php include "Views/Layout/Lower.php" ?>
+<script>
+    $(document).on( "click", ".like", function() {
+      var id_post_file = $(this).attr("data-id_post");
+      btn = $(this);
+        $.ajax({
+            url: "?param1=common-ajax",
+            dataType: "json",
+            method: 'POST',
+            type: 'json',
+            data: {
+              action : 'add-like',
+              id_post_file : id_post_file,
+              id_person : <?php echo $user_id; ?>
+            },
+            success: function (data) {
+              console.log("dodano");
+            },
+        });
+    });
+</script>
