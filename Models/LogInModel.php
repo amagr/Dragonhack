@@ -22,7 +22,6 @@
 			}
 		}
 		public function insert_new_user($link) {
-			
 			$username = $_POST['username'];
 			$e_mail = $_POST['e-mail'];
 			$password = md5($_POST['password']);
@@ -30,22 +29,41 @@
 			$year = $_POST['year'];
 			$smer = $_POST['smer'];
 
-			$sql_program = "SELECT id_program FROM program
-			WHERE id_school=".$school." AND year =".$year." AND smer = '".$smer. "' LIMIT 1";
+			$sql_program = "SELECT id_program FROM program WHERE id_school=".$school." AND year =".$year." AND smer = '".$smer. "' LIMIT 1";
 			$program_sql = mysqli_query($link,$sql_program);
 			$id_program = (mysqli_fetch_assoc($program_sql)['id_program']);
 			
+			if (!$id_program) {
+				$sql = "INSERT INTO `program`
+				(
+				`id_school`,
+				`year`,
+				`smer`)
+				VALUES
+				('".$school."',
+				'".$year."',
+				'".$smer."')";
+				mysqli_query($link, $sql);
+
+				$sql_program = "SELECT id_program FROM program WHERE id_school=".$school." AND year =".$year." AND smer = '".$smer. "' LIMIT 1";
+				$program_sql = mysqli_query($link,$sql_program);
+				$id_program = (mysqli_fetch_assoc($program_sql)['id_program']);
+			}
+
 			$sql = "INSERT INTO `person`
 				(
 				`nickname`,
 				`e-mail`,
 				`password`,
-				`id_program`)
+				`id_program`,
+				`is_admin`)
 				VALUES
 				('".$username."',
 				'".$e_mail."',
 				'".$password."',
-				".$id_program.")";
+				".$id_program.",
+				0)";
+
 			mysqli_query($link,$sql);
 
 		}		
