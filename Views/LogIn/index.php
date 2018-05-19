@@ -1,5 +1,10 @@
 <?php include "Views/Layout/upper.php" ?>
-		
+<html>
+	<head>
+		<title>Dragon hack</title>
+	</head>
+	<body>
+
 		<div class="container">
 			<form class="form-signin" method="post">
 				<input type="text" name = "username" id="inputUsername" class="form-control" placeholder="Username" required autofocus><br>

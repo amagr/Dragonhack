@@ -21,7 +21,6 @@
 </html>
 <script>
     $(document).on( "change", "#school", function() {
-    	
     	var school_id = $( "#school option:selected" ).val();
     	console.log(school_id);
     });
