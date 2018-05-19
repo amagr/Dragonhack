@@ -12,15 +12,6 @@
 			}
 			include "Views/Posts/index.php";
 		}
-
-		public static function uploadFiles() {
-			include "Views/Files/uploadFiles.php";
-		}
-
-		public static function upload($link) {
-			$model = new FilesModel();
-			$model->upload($link);
-		}
 	}
 
 ?>

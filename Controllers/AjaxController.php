@@ -39,10 +39,17 @@
 
 			} else if ($action == 'sort-posts') {
 				$model = new PostsModel();
-				$obj = $model->sort_posts($link,$user_id);
+				$feed = $model->sort_posts($link,$user_id);
+				foreach ($feed as $key => $post) {
+					$names = explode(";", $post['names']);
+					$feed[$key]['tags'] = $names;
+					if(!$names[0]){
+						$feed[$key]['tags'] = [];
+					}
+				} 
 			    echo json_encode([
 			        'status' => 1,
-			        'obj' => $obj
+			        'obj' => $feed
 			    ]);
 			}
 		}

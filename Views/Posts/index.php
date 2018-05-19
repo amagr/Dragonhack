@@ -1,5 +1,4 @@
 <?php include "Views/Layout/upper.php" ?>
-
 <?php include "Views/Layout/header.php" ?>
 
 <!-- <body class="w3-theme-l5"> -->
@@ -105,13 +104,20 @@
               <p contenteditable="true" class="w3-border w3-padding">Input your search term</p>
               <button type="button" class="w3-button w3-theme">Search</button> 
             </div>
+            <div class="w3-container w3-padding">
+              <div style="width: 100%; display: flex">
+                <select id="school">
+                  <option value="1">1</option>
+                </select>
+              </div>
+              <button type="button" class="w3-button w3-theme">Search</button> 
+            </div>
           </div>
         </div>
       </div>
-
+    <div class="posts" style=""><br>
     </div>
-    
-    <!-- Right Column -->
+</div>    <!-- Right Column -->
     <div class="w3-col m2">
       <div class="w3-card w3-round w3-white w3-center">
         <div class="w3-container">
@@ -170,13 +176,28 @@
 
 <?php include "Views/Layout/Lower.php" ?>
 <script>
-      /*json = <?php echo $json?>;
+
+      json = <?php echo $json?>;
       tags = json['tags'];
       subject = json['subject'];
       year = json['year'];
-      school = json['school'];*/
+      school = json['school'];
+      if(typeof tags == "undefined"){
+        tags = [0];
+      }
+      if(typeof subject == "undefined"){
+        subject = 0;
+      }
+      if(typeof year == "undefined"){
+        year = 0;
+      }    
+      if(typeof school == "undefined"){
+        school = 0;
+      }      
+      console.log(year);
       append_posts();
       function append_posts(){
+          $('.posts').empty();
           $.ajax({
             url: "?param1=common-ajax",
             dataType: "json",
@@ -184,23 +205,32 @@
             type: 'json',
             data: {
               action : 'sort-posts',
+              tags : tags,
+              subject : subject,
+              school : school,
+              year : year,
             },
             success: function (data) {
-                $('#select_smer').remove();
-              var html = '';
-              html += '<select id ="select_smer" name="smer">'
-              html += '<option value = "0"> No program </option>'
-                $.each(data.obj, function( index, value ) {
-                html += '<option value = "'+value.smer+'"> '+value.smer+' </option>'
-                });
-                $('#smer').append(html);
+              html = '';
+              $.each(data.obj, function(key, value) {
+              html += '    <div class="w3-container w3-card w3-white w3-round w3-margin posts" style="padding-bottom: 60px;"><br>'+
+                 '<img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'+
+                 '<span class="w3-right w3-opacity">'+value.date_parsed+'</span>'+
+                 '<h4>'+value.nickname+'</h4><br>'+
+                 '<hr class="w3-clear">'+
+                 '<p>'+value.opis+'</p>'+
+                 '<button data-id_post = "'+value.id_file_post+'" type="button" class="like w3-button w3-theme-d1 w3-margin-bottom" style="width: 100%"><i class="fa fa-thumbs-up"> '+value.like_count+'</i></button>'+ 
+                 '<button  type="button" class="w3-button w3-theme-d2 w3-margin-bottom" style="width: 100%"><i class="fa fa-comment"></i>  Comment</button>';
+                  html +='<div style="width: 100%; display: flex">';
+                 $.each(value['tags'], function(key1, tag) {
+                     html+= '<span style="padding: 10px;'+
+                     'background-color: #97b5c4 !important; margin-left: 10px;">'+tag+'</span>';
+                  });
+                 html+='</div>'+
+                  '</div>';
 
-                $('#select_year').remove();
-                html = '<select id ="select_year" name="year">';
-        for (i = 1; i <= 4; i++) { 
-                html += '<option value = "'+i+'"> '+i+' year </option>'
-              }
-                $('#year').append(html);
+              });
+              $('.posts').append(html);
             },
         });
       }

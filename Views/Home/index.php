@@ -210,7 +210,6 @@
               id_person : <?php echo $user_id; ?>
             },
             success: function (data) {
-              console.log("dodano");
             },
         });
     });
