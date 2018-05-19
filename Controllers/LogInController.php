@@ -6,7 +6,6 @@
 		public static function index() {
 			include "Views/LogIn/index.php";
 		}
-
 		public static function login($link) {		
 			$model = new LogInModel();
 			$model->logIn($link);
@@ -19,8 +18,8 @@
 		}
 		public static function registration_post($link){
 			$model = new LogInModel();
-			$model->register($link);
-			header("Location: /login");
+			$model->insert_new_user($link);
+			header("Location: /?param1=");
 		}
 		public static function logout() {
 			$model = new LogInModel();

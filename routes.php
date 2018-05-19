@@ -3,26 +3,34 @@
 	spl_autoload_register(function ($class_name) {
 	    include 'Controllers\\' .$class_name . '.php';
 	});
-
+	if(isset($_GET["param1"]) && $_GET["param1"] == "common-ajax"){
+		AjaxController::common_ajax($link);
+		die;
+	} 
 	if(!isset($_SESSION["user_id"])) {
 		if (!isset($_GET["param1"]) || (isset($_GET["param1"]) && $_GET["param1"] == "")) {
 			if(isset($_POST["login"])) {
 				LogInController::login($link);
-			} else {
+			} 
+			else {
 				LogInController::index();
 			}
-		} else if(isset($_GET["param1"]) && ($_GET["param1"] == "register")) {
+
+		} else if(isset($_GET["param1"]) && ($_GET["param1"] == "register") && (!isset($_POST["register"]))) {
 				LogInController::registration($link);
+		}  elseif (isset($_GET["param1"]) && ($_GET["param1"] == "register") && (isset($_POST["register"]))) {
+			LogInController::registration_post($link);
 		}
 	} else {
 		if (isset($_GET["param1"])) {
 			if ($_GET["param1"] == "home") {
-				HomeController::index();
+				HomeController::index($link);
 			} else if ($_GET["param1"] == "person") {
 				PersonController::index();
 			}  else if ($_GET["param1"] == "logout") {
 				LogInController::logout();
-			} else {
+			}
+			else {
 				echo "wrong url";
 			}
 

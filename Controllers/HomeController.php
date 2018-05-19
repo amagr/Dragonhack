@@ -8,10 +8,12 @@
 			$this->link = $link;
 		}
 
-		public static function index() {
-			$homeModel = new HomeModel();
+		public static function index($link) {
 
-			$person = $homeModel->getPerson();
+			$user_id = $_SESSION['user_id'];
+			$homeModel = new HomeModel();
+			$person = $homeModel->getPerson($link,$user_id);
+			$feed = $homeModel->getFeed($link,$user_id);
 
 			include "Views/Home/index.php";
 		}
