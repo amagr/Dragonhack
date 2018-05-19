@@ -3,12 +3,9 @@
 
 	class HomeController {
 
-		private $link;
-		function __construct($link) {
-			$this->link = $link;
-		}
 
 		public static function index($link) {
+			$homeModel = new HomeModel();
 
 			$user_id = $_SESSION['user_id'];
 			$homeModel = new HomeModel();

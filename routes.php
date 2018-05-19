@@ -25,17 +25,17 @@
 		if (isset($_GET["param1"])) {
 			if ($_GET["param1"] == "home") {
 				HomeController::index($link);
-			} else if ($_GET["param1"] == "person") {
-				PersonController::index();
+			} else if ($_GET["param1"] == "files") {
+				if ($_GET["param2"] == "upload") {
+					FilesController::uploadFiles();
+				} else {	
+					FilesController::index();
+				}
 			}  else if ($_GET["param1"] == "logout") {
 				LogInController::logout();
 			}
 			else {
 				echo "wrong url";
-			}
-
-			if (isset($_GET["param2"])) {
-				echo $_GET["param2"];
 			}
 
 		} else {
