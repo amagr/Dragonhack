@@ -13,8 +13,5 @@
 			  <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
 			</div>
 		</div>
-		<div class="">
-			<input type="text" name="search" class="search-input">
-		</div>
 	</div>
 </div>

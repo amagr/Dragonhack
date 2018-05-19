@@ -3,10 +3,6 @@
 		public function upload($link) {
 
 
-			// print_r($_FILES);die;
-			// print_r($_POST);die;
-
-
 			$storeFolder = 'files\\others';  
  
 			if (!empty($_FILES)) {
@@ -43,22 +39,13 @@
 
 				$row = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
-				// print_r($row); die;
-
-				// echo "naredu"; die;
-
 				$name = 'file_'.$row['id_file_post'];
 				
-				// echo $name; die;
-
 			    $tempFile = $_FILES['file']['tmp_name'];                      
 			      
 			    $targetPath = $storeFolder . '\\'; 
 			     
 			    $targetFile =  $targetPath. $name . '.' .$type;
-
-				// echo $targetFile; die;
-
 			 
 			    move_uploaded_file($tempFile,$targetFile);
 			     
