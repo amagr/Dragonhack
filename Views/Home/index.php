@@ -1,4 +1,4 @@
-<?php include "Views/Layout/Upper.php" ?>
+<?php include "Views/Layout/upper.php" ?>
 
 	
 <style>

@@ -13,6 +13,3 @@
 		<title>Dragon hack</title>
 	</head>
 	<body>
-
-		
-	
