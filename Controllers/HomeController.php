@@ -3,6 +3,11 @@
 
 	class HomeController {
 
+		private $link;
+		function __construct($link) {
+			$this->link = $link;
+		}
+
 		public static function index() {
 			$homeModel = new HomeModel();
 

@@ -4,20 +4,30 @@
 	    include 'Controllers\\' .$class_name . '.php';
 	});
 
-	if (isset($_GET["param1"])) {
-		if ($_GET["param1"] == "home") {
-			HomeController::index();
-		} else if ($_GET["param1"] == "person") {
-			PersonController::index();
+	if(!isset($_SESSION["user_id"])) {
+		if(isset($_POST["login"])) {
+			LogInController::login($link);
 		} else {
-			echo "wrong url";
+			LogInController::index();
 		}
-
-		if (isset($_GET["param2"])) {
-			echo $_GET["param2"];
-		}
-
 	} else {
-		echo "no params";
+		if (isset($_GET["param1"])) {
+			if ($_GET["param1"] == "home") {
+				HomeController::index();
+			} else if ($_GET["param1"] == "person") {
+				PersonController::index();
+			}  else if ($_GET["param1"] == "logout") {
+				LogInController::logout();
+			} else {
+				echo "wrong url";
+			}
+
+			if (isset($_GET["param2"])) {
+				echo $_GET["param2"];
+			}
+
+		} else {
+			echo "no params";
+		}
 	}
 ?>
