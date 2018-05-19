@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title>Dragon hack</title>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</head>
 	<body>
 		<div class="container">
