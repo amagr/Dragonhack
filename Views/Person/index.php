@@ -21,7 +21,6 @@
     
       <div style="text-align: center">
         <h3><?php echo $person['nickname']; ?><span style="margin-left: 5px; cursor: pointer;" id="star" data-id=<?php echo $person['id_person']; ?>><i class="star <?= $isFollowing ? 'yellow' : '' ?> fa fa-star" style="color: #abab99;" title="Add to favorite"></i>
-
 </span></h3>
       </div>
       <div style="text-align: center">

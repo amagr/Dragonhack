@@ -21,7 +21,7 @@
 
 			$subjectModel = new SubjectModel();
 			$subjects = $subjectModel->getAllSubjects($link);
-
+			$tags = $homeModel->getPopularTags($link);
 			if(!isset($_GET["param2"])){
 				$json = 0;
 			} else {

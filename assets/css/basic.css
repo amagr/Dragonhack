@@ -7,6 +7,9 @@
 .yellow{
   color: yellow !important;
 }
+.hide_post{
+  display: none;
+}
 .dropzone {
   position: relative; }
   .dropzone .dz-preview {

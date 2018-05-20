@@ -27,7 +27,7 @@
 
 			$subjectModel = new SubjectModel();
 			$subjects = $subjectModel->getAllSubjects($link);
-
+			$tags = $homeModel->getPopularTags($link);
 			// print_r($interests);die;
 
 			foreach ($feed as $key => $post) {
