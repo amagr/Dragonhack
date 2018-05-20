@@ -27,7 +27,7 @@
 			if($term){
 				$where .= "AND (FP.opis LIKE '%".$term."%' || FP.post_name LIKE '%".$term."%' ) ";
 			}
-			$sql = "SELECT FP.*, DATE_FORMAT(FP.date, '%d.%m.%Y') as date_parsed, P.nickname, S.name as subject_name,SO.name as school_name,
+			$sql = "SELECT FP.*, DATE_FORMAT(FP.date, '%d.%m.%Y') as date_parsed, P.nickname, P.id_person, S.name as subject_name,SO.name as school_name,
 			(
 			SELECT count(*) from like_logs WHERE id_post_file = FP.id_file_post LIMIT 1
 			) as like_count,

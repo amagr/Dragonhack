@@ -52,7 +52,7 @@
           <div style="height: 50px;"><strong><?php echo $post['school_name'].$yr.$post['subject_name']; ?></strong></div>
           <img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
           <span class="w3-right w3-opacity"><?php echo $post['date_parsed'] ?></span>
-          <h4><?php echo $post['nickname'] ?></h4><br>
+          <h4><a style="text-decoration: none;" href="?param1=person&param2=<?php echo $post['id_person'] ?>"><?php echo $post['nickname'] ?></a></h4><br>
           <h3><?php echo $post['post_name'] ?></h3>
           <hr class="w3-clear">
             <p><?php echo $post['opis'] ?></p>
