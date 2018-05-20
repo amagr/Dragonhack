@@ -1,5 +1,6 @@
 <?php
 	include "Models\\HomeModel.php";
+	include "Models\\FilesModel.php";
 
 	class HomeController {
 
@@ -9,8 +10,9 @@
 
 			$user_id = $_SESSION['user_id'];
 			$homeModel = new HomeModel();
-			$person = $homeModel->getPerson($link,$user_id);
-			$feed = $homeModel->getFeed($link,$user_id);
+			$person = $homeModel->getPerson($link, $user_id);
+			$feed = $homeModel->getFeed($link, $user_id);
+
 			foreach ($feed as $key => $post) {
 				$names = explode(";", $post['names']);
 				$feed[$key]['tags'] = $names;

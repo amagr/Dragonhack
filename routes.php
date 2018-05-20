@@ -42,7 +42,7 @@
 			}
 
 		} else {
-			echo "no params";
+			HomeController::index($link);
 		}
 	}
 ?>
