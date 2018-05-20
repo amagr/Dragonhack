@@ -28,6 +28,42 @@
 	        }
 	        return $rez;
 		}
+
+		public function getInterest($link, $user_id) {
+			$sql = "SELECT MI.*, S.* FROM my_interests MI
+				JOIN school S ON (MI.id_school = S.id_school)
+				WHERE MI.id_person = ".$user_id;
+			$sql_query = mysqli_query($link,$sql);
+			$school_interest = mysqli_fetch_assoc($sql_query);
+
+			$sql = "SELECT MI.*, S.* FROM my_interests MI
+				JOIN Subject S ON (MI.id_subject = S.id_subject)
+				WHERE MI.id_person = ".$user_id;
+			$sql_query = mysqli_query($link,$sql);
+			$subject_interest = mysqli_fetch_assoc($sql_query);
+
+			$sql = "SELECT year FROM my_interests
+				WHERE id_person = ".$user_id;
+			$sql_query = mysqli_query($link,$sql);
+			$year_interest = mysqli_fetch_assoc($sql_query);
+
+			$interest = '';
+
+			if ($school_interest) {
+				$interest = $school_interest['name'];
+			}
+
+			if ($subject_interest) {
+				$interest = $subject_interest['name'];
+			}
+
+			if ($year_interest['year'] > 0) {
+				$interest = $year_interest['year']. ". year";
+			}
+
+			return $interest;
+		}
+
 		public function add_like($link){
 		  
 		    $id_person = intval($_POST['id_person']);

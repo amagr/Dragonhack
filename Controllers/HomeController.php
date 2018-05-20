@@ -13,6 +13,8 @@
 			$person = $homeModel->getPerson($link, $user_id);
 			$feed = $homeModel->getFeed($link, $user_id);
 
+			$interest = $homeModel->getInterest($link, $user_id);
+
 			foreach ($feed as $key => $post) {
 				$names = explode(";", $post['names']);
 				$feed[$key]['tags'] = $names;

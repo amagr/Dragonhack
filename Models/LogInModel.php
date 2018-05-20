@@ -50,6 +50,7 @@
 				$id_program = (mysqli_fetch_assoc($program_sql)['id_program']);
 			}
 
+
 			$sql = "INSERT INTO `person`
 				(
 				`nickname`,
@@ -63,6 +64,8 @@
 				'".$password."',
 				".$id_program.",
 				0)";
+
+			// echo $sql; die;
 
 			mysqli_query($link,$sql);
 

@@ -26,8 +26,8 @@
       <!-- Accordion -->
       <div class="w3-card w3-round">
         <div class="w3-white">
-          <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My Groups</button>
-          <div id="Demo1" class="w3-hide w3-container">
+          <button onclick="expandInterests()" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My Interests</button>
+          <div id="myInterests" class="w3-container">
             <p>Some text..</p>
           </div>
           <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
@@ -126,7 +126,7 @@
           <a href="files/others/file_<?php echo $post['id_file_post'].'.'.$post['type']; ?>" download><button  type="button" class="w3-button w3-theme-d2 w3-margin-bottom" style="width: 100%"><i class="fa fa-download"></i> Download</button></a>
           <div style="width: 100%" >
             <?php foreach($post['tags'] as $tag){?>
-              <a href='/?param1=posts&param2={%20"tags": "<?php echo $tag ?>"}#'>
+              <a style="text-decoration: none;" href='/?param1=posts&param2={%20"tags": "<?php echo $tag ?>"}#'>
                 <span style="padding: 10px;
               background-color: #97b5c4 !important; margin-left: 10px;">
                 <?php if($tag) echo $tag; ?>
@@ -220,4 +220,11 @@
             },
         });
     });
+
+    $('#myInterests').hide();
+
+    function expandInterests() {
+      $('#myInterests').toggle();
+
+    }
 </script>
