@@ -10,7 +10,7 @@
 			$person_data = mysqli_fetch_assoc($sql_query);
 			return $person_data;
 		}
-		public function getFeed($link,$user_id,$interest) {
+		public function getFeed($link,$user_id,$interest,$term) {
 			$year = $interest['year'];
 			$subject = $interest['id_subject'];
 			$school = $interest['id_school'];
@@ -24,7 +24,9 @@
 			if($school){
 				$where .= "AND FP.id_school = ".$school." ";
 			}
-
+			if($term){
+				$where .= "AND (FP.opis LIKE '%".$term."%' || FP.post_name LIKE '%".$term."%' ) ";
+			}
 			$sql = "SELECT FP.*, DATE_FORMAT(FP.date, '%d.%m.%Y') as date_parsed, P.nickname, S.name as subject_name,SO.name as school_name,
 			(
 			SELECT count(*) from like_logs WHERE id_post_file = FP.id_file_post LIMIT 1
@@ -36,7 +38,7 @@
 			LEFT JOIN subject S on (FP.id_subject = S.id_subject)
 			LEFT JOIN school SO on (FP.id_school = SO.id_school)
 			WHERE 1=1  ".$where."
-			order by FP.date DESC";
+			order by FP.id_file_post DESC";
 			//echo $sql; die;
 		    $sql_query = mysqli_query($link,$sql);
 	        $rez = array();

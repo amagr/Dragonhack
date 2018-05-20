@@ -9,12 +9,16 @@
 
 		public static function index($link) {
 			$homeModel = new HomeModel();
-
 			$user_id = $_SESSION['user_id'];
 			$homeModel = new HomeModel();
 			$person = $homeModel->getPerson($link, $user_id);
 			$interest = $homeModel->getInterest($link, $user_id);
-			$feed = $homeModel->getFeed($link, $user_id,$interest);
+			$term = 0;
+			if(isset($_GET["param2"])){
+				$term = $_GET["param2"];
+			}
+
+			$feed = $homeModel->getFeed($link, $user_id,$interest,$term);
 
 			$interests = $homeModel->getInterestsWithNames($link, $user_id);
 

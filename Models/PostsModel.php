@@ -51,7 +51,7 @@
 			LEFT JOIN school SO on (FP.id_school = SO.id_school)
 			LEFT JOIN tag_on_files TOF ON (FP.id_file_post = TOF.id_file_post)
 			WHERE 1=1  ".$where."
-			order by FP.date DESC";
+			order by FP.id_file_post DESC";
 			//echo $sql; die;
 		    $sql_query = mysqli_query($link,$sql);
 	        $rez = array();

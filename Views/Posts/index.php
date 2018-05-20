@@ -101,7 +101,7 @@
         <div class="w3-col m12">
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
-              <p contenteditable="true" class="w3-border w3-padding">Input your search term</p>
+              <p contenteditable="true" class="w3-border w3-padding">Input your search term(searching name and description)</p>
               <button type="button" class="w3-button w3-theme">Search</button> 
             </div>
             <div class="w3-container w3-padding">
@@ -268,7 +268,10 @@
         });
         function append_tag(){
           $('#tag_showing').empty();
-          $('#tag_showing').append(tags);
+          if(tags){
+            $('#tag_showing').append('<h3>Choosen tag is: '+tags+'</h3>');
+            window.scrollTo(0, 0);
+          }
         }
         $(document).on( "change", "#school", function() {
           school = $(this).val();
