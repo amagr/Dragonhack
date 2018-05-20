@@ -35,12 +35,12 @@
 		<div id="tags_container" style="margin-bottom: 15px; margin-top: 10px;"></div>
 
 		<form action="/?param1=file-upload" class="dropzone" id="my-awesome-dropzone">
-			<input type="hidden" name="id_subject_hidden" id="id_subject_hidden" value="-1">
+			<input type="hidden" name="id_subject_hidden" id="id_subject_hidden" value="0">
 			<!-- <input type="hidden" name="id_person_hidden" id="id_person_hidden" value="3"> -->
 			<input type="hidden" name="post_name_hidden" id="post_name_hidden" value="">
 			<input type="hidden" name="opis_hidden" id="opis_hidden" value="">
-			<input type="hidden" name="id_school_hidden" id="id_school_hidden" value="-1">
-			<input type="hidden" name="year_hidden" id="year_hidden" value="">
+			<input type="hidden" name="id_school_hidden" id="id_school_hidden" value="0">
+			<input type="hidden" name="year_hidden" id="year_hidden" value="0">
 		</form>
 		<div id="tagged_container" style="margin-bottom: 15px; margin-top: 10px;"></div>
 	</div>

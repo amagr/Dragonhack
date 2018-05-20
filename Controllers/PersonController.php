@@ -1,17 +1,26 @@
 <?php
-	include "Models\\PostsModel.php";
-	include "Models\\HomeModel.php";
+	include "Models\\PersonModel.php";
 	include "Models\\FilesModel.php";
 	include "Models\\SubjectModel.php";
 	include "Models\\SchoolModel.php";
+	include "Models\\HomeModel.php";
 
-	class PostsController {
+	class PersonController {
 
 		public static function index($link) {
-			$model = new PostsModel;
+			$model = new PersonModel();
+
+			$posts = $model->getPosts($link, $_GET['param2']);
+
+			foreach ($posts as $key => $post) {
+				$names = explode(";", $post['names']);
+				$posts[$key]['tags'] = $names;
+				if(!$names[0]){
+					$posts[$key]['tags'] = [];
+				}
+			} 
+
 			$user_id = $_SESSION['user_id'];
-			$schools = $model->getSchools($link);
-			$subjects = $model->getsubjects($link);
 
 			$homeModel = new HomeModel();
 			$interests = $homeModel->getInterestsWithNames($link, $user_id);
@@ -22,13 +31,7 @@
 			$subjectModel = new SubjectModel();
 			$subjects = $subjectModel->getAllSubjects($link);
 
-			if(!isset($_GET["param2"])){
-				$json = 0;
-			} else {
-				$json = $_GET["param2"];
-			}
-
-			include "Views/Posts/index.php";
+			include "Views/Person/index.php";
 		}
 	}
 

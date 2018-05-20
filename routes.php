@@ -37,10 +37,16 @@
 				}
 			} else if ($_GET["param1"] == "file-upload") {
 				FilesController::upload($link);
+			} else if ($_GET["param1"] == "person") {
+				PersonController::index($link);
 			} else if ($_GET["param1"] == "logout") {
 				LogInController::logout();
 			} else if ($_GET["param1"] == "posts"){
-				PostsController::index($link);
+				if (isset($_POST['changeInterest'])) {
+					HomeController::changeInterest($link);	
+				} else {
+					PostsController::index($link);
+				}
 			} else {
 				echo "wrong url";
 			}

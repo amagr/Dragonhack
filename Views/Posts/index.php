@@ -10,86 +10,7 @@
     <!-- Left Column -->
     <div class="w3-col m3">
       <!-- Profile -->
-      <div class="w3-card w3-round w3-white">
-        <div class="w3-container">
-         <h4 class="w3-center">My Profile</h4>
-         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
-         <hr>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
-         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
-        </div>
-      </div>
-      <br>
-      
-      <!-- Accordion -->
-      <div class="w3-card w3-round">
-        <div class="w3-white">
-          <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My Groups</button>
-          <div id="Demo1" class="w3-hide w3-container">
-            <p>Some text..</p>
-          </div>
-          <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
-          <div id="Demo2" class="w3-hide w3-container">
-            <p>Some other text..</p>
-          </div>
-          <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</button>
-          <div id="Demo3" class="w3-hide w3-container">
-         <div class="w3-row-padding">
-         <br>
-           <div class="w3-half">
-             <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/fjords.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-         </div>
-          </div>
-        </div>      
-      </div>
-      <br>
-      
-      <!-- Interests --> 
-      <div class="w3-card w3-round w3-white w3-hide-small">
-        <div class="w3-container">
-          <p>Interests</p>
-          <p>
-            <span class="w3-tag w3-small w3-theme-d5">News</span>
-            <span class="w3-tag w3-small w3-theme-d4">W3Schools</span>
-            <span class="w3-tag w3-small w3-theme-d3">Labels</span>
-            <span class="w3-tag w3-small w3-theme-d2">Games</span>
-            <span class="w3-tag w3-small w3-theme-d1">Friends</span>
-            <span class="w3-tag w3-small w3-theme">Games</span>
-            <span class="w3-tag w3-small w3-theme-l1">Friends</span>
-            <span class="w3-tag w3-small w3-theme-l2">Food</span>
-            <span class="w3-tag w3-small w3-theme-l3">Design</span>
-            <span class="w3-tag w3-small w3-theme-l4">Art</span>
-            <span class="w3-tag w3-small w3-theme-l5">Photos</span>
-          </p>
-        </div>
-      </div>
-      <br>
-      
-      <!-- Alert Box -->
-      <div class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
-        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
-          <i class="fa fa-remove"></i>
-        </span>
-        <p><strong>Hey!</strong></p>
-        <p>People are looking at your profile. Find out who.</p>
-      </div>
+      <?php include "Views/Home/left_side_menu.php" ?>
     
     <!-- End Left Column -->
     </div>
@@ -230,36 +151,44 @@
 
               html = '';
               $.each(data.obj, function(key, value) {
-              if ((value.year)) {
-                value.year = '<span style="font-size: 20px;"> &rarr; </span>'+ value.year+'. year';
-              }else{
-                value.year = '';
-              }
-              if (!(typeof value.subject_name === "undefined")) {
-                value.subject_name = '<span style="font-size: 20px;"> &rarr; </span>'+ value.subject_name;
-              } else{
-                value.subject_name = '';
-              }
-              if ((value.school_name)) {
-              }else{
-                value.school_name = '';
-              }
-              html += '<div class="w3-container w3-card w3-white w3-round w3-margin posts" style="padding-bottom: 60px;"><br>'+
-                 '<div style="height: 50px;"><strong>'+value.school_name+value.subject_name+value.year+'</strong></div>'+
-                 '<img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'+
-                 '<span class="w3-right w3-opacity">'+value.date_parsed+'</span>'+
-                 '<h4>'+value.nickname+'</h4><br>'+
-                 '<hr class="w3-clear">'+
-                 '<p>'+value.opis+'</p>'+
-                 '<button data-id_post = "'+value.id_file_post+'" type="button" class="like w3-button w3-theme-d1 w3-margin-bottom" style="width: 100%"><i class="fa fa-thumbs-up"> '+value.like_count+'</i></button>'+ 
-                 '<button  type="button" class="w3-button w3-theme-d2 w3-margin-bottom" style="width: 100%"><i class="fa fa-comment"></i>  Comment</button>';
-                  html +='<div style="width: 100%; display: flex">';
-                 $.each(value['tags'], function(key1, tag) {
-                     html+= '<span class="tag" data-tag="'+tag+'" style="padding: 10px;'+
-                     'background-color: #97b5c4 !important; margin-left: 10px;">'+tag+'</span>';
-                  });
-                 html+='</div>'+
-                  '</div>';
+                if ((value.year)) {
+                  value.year = '<span style="font-size: 20px;"> &rarr; </span>'+ value.year+'. year';
+                }else{
+                  value.year = '';
+                }
+                if (!(typeof value.subject_name === "undefined")) {
+                  value.subject_name = '<span style="font-size: 20px;"> &rarr; </span>'+ value.subject_name;
+                } else{
+                  value.subject_name = '';
+                }
+                if ((value.school_name)) {
+                }else{
+                  value.school_name = '';
+                }
+
+                console.log(value);
+                var disable = '';
+                if(value.is_like == 1){
+                  disable = 'disabled title="You have already liked that"';
+                }
+
+                html += '<div class="w3-container w3-card w3-white w3-round w3-margin posts" style="padding-bottom: 60px;"><br>'+
+                   '<div style="height: 50px;"><strong>'+value.school_name+value.subject_name+value.year+'</strong></div>'+
+                   '<img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'+
+                   '<span class="w3-right w3-opacity">'+value.date_parsed+'</span>'+
+                   '<h4>'+value.nickname+'</h4><br>'+
+                   '<h3>'+value.post_name+'</h3>'+
+                   '<hr class="w3-clear">'+
+                   '<p>'+value.opis+'</p>'+
+                   '<button '+disable+' data-id_post = "'+value.id_file_post+'" type="button" class="like w3-button w3-theme-d1 w3-margin-bottom" style="width: 100%"><i class="fa fa-thumbs-up"> '+value.like_count+'</i></button>'+ 
+                   '<a href="files/others/file_' + value.id_file_post + '.' + value.type + '" download><button  type="button" class="w3-button w3-theme-d2 w3-margin-bottom" style="width: 100%"><i class="fa fa-download"></i> Download</button></a>';
+                    html +='<div style="width: 100%; display: flex">';
+                   $.each(value['tags'], function(key1, tag) {
+                       html+= '<span class="tag" data-tag="'+tag+'" style="padding: 10px;'+
+                       'background-color: #97b5c4 !important; margin-left: 10px;">'+tag+'</span>';
+                    });
+                   html+='</div>'+
+                    '</div>';
 
               });
               $('.posts').append(html);
@@ -289,5 +218,39 @@
           tags = $(this).attr("data-tag")
           append_posts();
         });
+      }
+
+      $(document).on( "click", ".like", function() {
+        var id_post_file = $(this).attr("data-id_post");
+        btn = $(this);
+          $.ajax({
+              url: "?param1=common-ajax",
+              dataType: "json",
+              method: 'POST',
+              type: 'json',
+              data: {
+                action : 'add-like',
+                id_post_file : id_post_file,
+                id_person : <?php echo $user_id; ?>
+              },
+              success: function (data) {
+                var likes = parseInt(btn.find('i').html());
+                btn.find('i').html(" "+(likes+1));
+                btn.prop("disabled", true);
+              },
+          });
+      });
+
+      $('#myInterests').hide();
+      $('#newInterestContainer').hide();
+
+      $('#changeInterest').on('click', function(e) {
+        e.preventDefault();
+        $('#newInterestContainer').toggle();      
+      });
+
+      function expandInterests() {
+        $('#myInterests').toggle();
+
       }
 </script>

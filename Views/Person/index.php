@@ -19,20 +19,10 @@
     <!-- Middle Column -->
     <div class="w3-col m7">
     
-      <div class="w3-row-padding">
-        <div class="w3-col m12">
-          <div class="w3-card w3-round w3-white">
-            <div class="w3-container w3-padding">
-              <p contenteditable="true" class="w3-border w3-padding search_term">Input your search term(searching name and description)</p>
-              <input type="submit" id="search_submit" style="width: 100%"  class="w3-button w3-theme" value="Search"> 
-            </div>
-          </div>
-        </div>
-      </div>
       <div style="text-align: center">
         <h3>Your interests</h3>
       </div>
-      <?php foreach($feed as $post){ ?>
+      <?php foreach ($posts as $post) { ?>
         <?php 
         $disable = '';
         if($post['is_like']){
@@ -157,20 +147,10 @@
     $('#myInterests').hide();
     $('#newInterestContainer').hide();
 
-    $('#changeInterest').on('click', function() {
+    $('#changeInterest').on('click', function(e) {
       e.preventDefault();
       $('#newInterestContainer').toggle();      
     });
-
-    $('#search_submit').on('click', function(e) {
-      let term = $('.search_term').text();
-      window.location.href = "/?param1=home&param2="+term;
-
-    });
-    // $('#interest_type').on('change', function(e) {
-    //   var type
-    //   console.log()
-    // });
 
     function expandInterests() {
       $('#myInterests').toggle();
