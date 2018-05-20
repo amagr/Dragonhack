@@ -4,10 +4,10 @@
 
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
 	<div class="container" style="width: 60%; margin-left: auto; margin-right: auto;">
-
 		<input type="text" name = "post_name" id="post_name" class="form-control" placeholder="Post name" required autofocus><br>
 		<!-- <input type="text" name = "opis" id="opis" class="form-control" placeholder="Description"><br> -->
-		<p contenteditable="true" name="opis" id="opis" style="background-color: white" class="w3-border w3-padding"></p>
+		<div>Description</div>
+		<p contenteditable="true" name="opis" id="opis" placeholder="Description" style="background-color: white" class="w3-border w3-padding"></p>
 		
 		<select style="margin-bottom: 15px;" id="id_school" name="school">
 			<option value="0">No school</option>

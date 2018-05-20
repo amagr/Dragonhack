@@ -145,6 +145,9 @@
           </div>
         </div>
       </div>
+      <div style="text-align: center">
+        <h3>Your interests</h3>
+      </div>
       <?php foreach($feed as $post){ ?>
         <?php 
         $disable = '';
@@ -153,6 +156,16 @@
         }
         ?>
         <div class="w3-container w3-card w3-white w3-round w3-margin" style="padding-bottom: 60px;"><br>
+          <?php
+            $yr = ' ';
+            if(isset($post['year'])){
+              $yr = ' <span style="font-size: 20px;">&rarr;</span>   '.$post['year'].'. year ';
+            }
+            if(isset($post['subject_name'])){
+              $post['subject_name'] = '<span style="font-size: 20px;"> &rarr; </span>  '.$post['subject_name'];
+            }
+          ?>
+          <div style="height: 50px;"><strong><?php echo $post['school_name'].$yr.$post['subject_name']; ?></strong></div>
           <img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
           <span class="w3-right w3-opacity"><?php echo $post['date_parsed'] ?></span>
           <h4><?php echo $post['nickname'] ?></h4><br>
@@ -250,7 +263,6 @@
               id_person : <?php echo $user_id; ?>
             },
             success: function (data) {
-              console.log("notr");
               var likes = parseInt(btn.find('i').html());
               btn.find('i').html(" "+(likes+1));
               btn.prop("disabled", true);

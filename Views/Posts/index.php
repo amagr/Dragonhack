@@ -130,6 +130,7 @@
           </div>
         </div>
       </div>
+      <div id="tag_showing" style="text-align: center"></div>
     <div class="posts" style=""><br>
     </div>
 </div>    <!-- Right Column -->
@@ -229,7 +230,22 @@
 
               html = '';
               $.each(data.obj, function(key, value) {
-              html += '    <div class="w3-container w3-card w3-white w3-round w3-margin posts" style="padding-bottom: 60px;"><br>'+
+              if ((value.year)) {
+                value.year = '<span style="font-size: 20px;"> &rarr; </span>'+ value.year+'. year';
+              }else{
+                value.year = '';
+              }
+              if (!(typeof value.subject_name === "undefined")) {
+                value.subject_name = '<span style="font-size: 20px;"> &rarr; </span>'+ value.subject_name;
+              } else{
+                value.subject_name = '';
+              }
+              if ((value.school_name)) {
+              }else{
+                value.school_name = '';
+              }
+              html += '<div class="w3-container w3-card w3-white w3-round w3-margin posts" style="padding-bottom: 60px;"><br>'+
+                 '<div style="height: 50px;"><strong>'+value.school_name+value.subject_name+value.year+'</strong></div>'+
                  '<img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">'+
                  '<span class="w3-right w3-opacity">'+value.date_parsed+'</span>'+
                  '<h4>'+value.nickname+'</h4><br>'+
@@ -239,16 +255,21 @@
                  '<button  type="button" class="w3-button w3-theme-d2 w3-margin-bottom" style="width: 100%"><i class="fa fa-comment"></i>  Comment</button>';
                   html +='<div style="width: 100%; display: flex">';
                  $.each(value['tags'], function(key1, tag) {
-                     html+= "<a href='/?param1=posts&param2={tags:'+tag+'}'"><span style="padding: 10px;'"+
-                     'background-color: #97b5c4 !important; margin-left: 10px;">'+tag+'</span></a>';
+                     html+= '<span class="tag" data-tag="'+tag+'" style="padding: 10px;'+
+                     'background-color: #97b5c4 !important; margin-left: 10px;">'+tag+'</span>';
                   });
                  html+='</div>'+
                   '</div>';
 
               });
               $('.posts').append(html);
+              append_tag();
             },
         });
+        function append_tag(){
+          $('#tag_showing').empty();
+          $('#tag_showing').append(tags);
+        }
         $(document).on( "change", "#school", function() {
           school = $(this).val();
           append_posts();
@@ -259,6 +280,10 @@
         });
         $(document).on( "change", "#subject", function() {
           subject = $(this).val();
+          append_posts();
+        });
+        $(document).on( "click", ".tag", function() {
+          tags = $(this).attr("data-tag")
           append_posts();
         });
       }

@@ -13,9 +13,10 @@
 			$user_id = $_SESSION['user_id'];
 			$homeModel = new HomeModel();
 			$person = $homeModel->getPerson($link, $user_id);
-			$feed = $homeModel->getFeed($link, $user_id);
+			$interest = $homeModel->getInterest($link, $user_id);
+			$feed = $homeModel->getFeed($link, $user_id,$interest);
 
-			$interests = $homeModel->getInterests($link, $user_id);
+			$interests = $homeModel->getInterestsWithNames($link, $user_id);
 
 			$schoolModel = new SchoolModel();
 			$schools = $schoolModel->getAllSchools($link);
