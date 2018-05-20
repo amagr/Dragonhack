@@ -36,7 +36,7 @@
 			} else if ($_GET["param1"] == "logout") {
 				LogInController::logout();
 			} else if ($_GET["param1"] == "posts"){
-				PostsController::index();
+				PostsController::index($link);
 			} else {
 				echo "wrong url";
 			}

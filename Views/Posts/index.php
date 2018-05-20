@@ -105,12 +105,27 @@
               <button type="button" class="w3-button w3-theme">Search</button> 
             </div>
             <div class="w3-container w3-padding">
-              <div style="width: 100%; display: flex">
-                <select id="school">
-                  <option value="1">1</option>
+              <div style="width: 100%; display: flex; margin-right: 5px;">
+
+                <select style="width: 30%; margin-right: 5px;" id="school">
+                    <option value='0'>All schools</option>
+                  <?php foreach($schools as $school){ ?>
+                    <option value='<?php echo $school['id_school']; ?>'><?php echo $school['name'] ?></option>
+                  <?php } ?>
+                </select>
+                <select style="width: 30%; margin-right: 5px;" id="year">
+                  <option value='0'>All years</option>
+                  <?php $i = 0; for($i=1;$i<5;$i++){ ?>
+                    <option value=<?php echo $i; ?>><?php echo $i ?></option>
+                  <?php } ?>
+                </select>
+                <select style="width: 30%; margin-right: 5px;" id="subject">
+                  <option value="0" selected="selected">All subjects</option>
+                  <?php foreach($subjects as $subject){ ?>
+                    <option value="<?php echo $subject['id_subject']; ?>"><?php echo $subject['name'] ?></option>
+                  <?php } ?>
                 </select>
               </div>
-              <button type="button" class="w3-button w3-theme">Search</button> 
             </div>
           </div>
         </div>
@@ -176,14 +191,14 @@
 
 <?php include "Views/Layout/Lower.php" ?>
 <script>
-
       json = <?php echo $json?>;
       tags = json['tags'];
+      console.log(tags);
       subject = json['subject'];
       year = json['year'];
       school = json['school'];
       if(typeof tags == "undefined"){
-        tags = [0];
+        tags = 0;
       }
       if(typeof subject == "undefined"){
         subject = 0;
@@ -194,10 +209,9 @@
       if(typeof school == "undefined"){
         school = 0;
       }      
-      console.log(year);
       append_posts();
       function append_posts(){
-          $('.posts').empty();
+        console.log(subject);
           $.ajax({
             url: "?param1=common-ajax",
             dataType: "json",
@@ -211,6 +225,8 @@
               year : year,
             },
             success: function (data) {
+              $('.posts').empty();
+
               html = '';
               $.each(data.obj, function(key, value) {
               html += '    <div class="w3-container w3-card w3-white w3-round w3-margin posts" style="padding-bottom: 60px;"><br>'+
@@ -223,8 +239,8 @@
                  '<button  type="button" class="w3-button w3-theme-d2 w3-margin-bottom" style="width: 100%"><i class="fa fa-comment"></i>  Comment</button>';
                   html +='<div style="width: 100%; display: flex">';
                  $.each(value['tags'], function(key1, tag) {
-                     html+= '<span style="padding: 10px;'+
-                     'background-color: #97b5c4 !important; margin-left: 10px;">'+tag+'</span>';
+                     html+= "<a href='/?param1=posts&param2={tags:'+tag+'}'"><span style="padding: 10px;'"+
+                     'background-color: #97b5c4 !important; margin-left: 10px;">'+tag+'</span></a>';
                   });
                  html+='</div>'+
                   '</div>';
@@ -232,6 +248,18 @@
               });
               $('.posts').append(html);
             },
+        });
+        $(document).on( "change", "#school", function() {
+          school = $(this).val();
+          append_posts();
+        });
+        $(document).on( "change", "#year", function() {
+          year = $(this).val();
+          append_posts();
+        });
+        $(document).on( "change", "#subject", function() {
+          subject = $(this).val();
+          append_posts();
         });
       }
 </script>

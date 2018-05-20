@@ -126,9 +126,12 @@
           <a href="files/others/file_<?php echo $post['id_file_post'].'.'.$post['type']; ?>" download><button  type="button" class="w3-button w3-theme-d2 w3-margin-bottom" style="width: 100%"><i class="fa fa-download"></i> Download</button></a>
           <div style="width: 100%" >
             <?php foreach($post['tags'] as $tag){?>
-              <span style="padding: 10px; background-color: #97b5c4 !important; margin-left: 10px;">
-              <?php if($tag) echo $tag; ?>
-              </span>
+              <a href='/?param1=posts&param2={%20"tags": "<?php echo $tag ?>"}#'>
+                <span style="padding: 10px;
+              background-color: #97b5c4 !important; margin-left: 10px;">
+                <?php if($tag) echo $tag; ?>
+                </span>
+              </a>
             <?php  } ?>
           </div> 
         </div>
