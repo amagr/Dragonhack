@@ -30,5 +30,18 @@
 	        }
 	        return $rez;
 		}
+		public function addToFavorite($link, $id_person_following,$id_person_followed) {
+
+			$sql = "INSERT INTO `following`
+				(
+				`id_person_following`,
+				`id_person_followed`)
+				VALUES
+				(".$id_person_following.",
+				".$id_person_followed.")";
+				mysqli_query($link, $sql);
+				
+		}
+
 	}
 ?>

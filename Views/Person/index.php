@@ -20,7 +20,9 @@
     <div class="w3-col m7">
     
       <div style="text-align: center">
-        <h3><?php echo $person['nickname']; ?></h3>
+        <h3><?php echo $person['nickname']; ?><span id="star" data-id=<?php echo $person['id_person']; ?>><i class="star fa fa-star" style="color: #abab99;" title="Add to favorite"></i>
+
+</span></h3>
       </div>
       <div style="text-align: center">
         <h4>(<?php echo $person['name']." ".$person['year'].". year"; ?>)</h4>
@@ -146,7 +148,26 @@
             },
         });
     });
-
+    $(document).on( "click", "#star", function() {
+      var id_person_followed = $(this).attr("data-id");
+      var id_person_following =  "<?php echo $user_id; ?>";
+      star = $(this);
+        $.ajax({
+            url: "?param1=common-ajax",
+            dataType: "json",
+            method: 'POST',
+            type: 'json',
+            data: {
+              action : 'add-to-favorite',
+              id_person_followed : id_person_followed,
+              id_person_following : <?php echo $user_id; ?>
+            },
+            success: function (data) {
+              console.log("notrq");
+              $(".star").addClass("yellow");
+            },
+        });
+    });
     $('#myInterests').hide();
     $('#newInterestContainer').hide();
 

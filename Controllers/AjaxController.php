@@ -4,6 +4,7 @@
 	include "Models\\HomeModel.php";
 	include "Models\\PostsModel.php";
 	include "Models\\TagsModel.php";
+	include "Models\\PersonModel.php";
 
 	class AjaxController {
 
@@ -55,6 +56,12 @@
 			    echo json_encode([
 			        'status' => 1,
 			        'obj' => $feed
+			    ]);
+			} else if ($action = 'add-to-favorite'){
+				$model = new PersonModel();
+				$model->addToFavorite($link, $_POST['id_person_following'],$_POST['id_person_followed']);
+			    echo json_encode([
+			        'status' => 1,
 			    ]);
 			}
 		}
