@@ -157,7 +157,7 @@
     $('#myInterests').hide();
     $('#newInterestContainer').hide();
 
-    $('#changeInterest').on('click', function() {
+    $('#changeInterest').on('click', function(e) {
       e.preventDefault();
       $('#newInterestContainer').toggle();      
     });

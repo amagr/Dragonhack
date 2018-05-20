@@ -151,12 +151,12 @@
 
               html = '';
               $.each(data.obj, function(key, value) {
-                if ((value.year)) {
+                if (typeof (value.year) != undefined && value.year != 0) {
                   value.year = '<span style="font-size: 20px;"> &rarr; </span>'+ value.year+'. year';
                 }else{
                   value.year = '';
                 }
-                if (!(typeof value.subject_name === "undefined")) {
+                if (!(typeof value.subject_name === "undefined") && value.subject_name != null ) {
                   value.subject_name = '<span style="font-size: 20px;"> &rarr; </span>'+ value.subject_name;
                 } else{
                   value.subject_name = '';

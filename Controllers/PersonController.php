@@ -31,6 +31,10 @@
 			$subjectModel = new SubjectModel();
 			$subjects = $subjectModel->getAllSubjects($link);
 
+			$person = $homeModel->getPerson($link, $_GET['param2']); 
+
+			// print_r($person); die;
+
 			include "Views/Person/index.php";
 		}
 	}

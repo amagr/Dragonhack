@@ -20,7 +20,10 @@
     <div class="w3-col m7">
     
       <div style="text-align: center">
-        <h3>Your interests</h3>
+        <h3><?php echo $person['nickname']; ?></h3>
+      </div>
+      <div style="text-align: center">
+        <h4>(<?php echo $person['name']." ".$person['year'].". year"; ?>)</h4>
       </div>
       <?php foreach ($posts as $post) { ?>
         <?php 
