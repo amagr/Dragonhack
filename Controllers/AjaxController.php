@@ -59,7 +59,8 @@
 			    ]);
 			} else if ($action = 'add-to-favorite'){
 				$model = new PersonModel();
-				$model->addToFavorite($link, $_POST['id_person_following'],$_POST['id_person_followed']);
+				$isFollowing = $model->isFollowing($link, $_POST['id_person_followed']);
+				$model->addToFavorite($link, $_POST['id_person_following'], $_POST['id_person_followed'], $isFollowing);
 			    echo json_encode([
 			        'status' => 1,
 			    ]);

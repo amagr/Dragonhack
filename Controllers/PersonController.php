@@ -33,6 +33,8 @@
 
 			$person = $homeModel->getPerson($link, $_GET['param2']); 
 
+			$isFollowing = $model->isFollowing($link, $_GET['param2']);
+
 			// print_r($person); die;
 
 			include "Views/Person/index.php";

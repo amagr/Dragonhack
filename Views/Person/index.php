@@ -20,7 +20,7 @@
     <div class="w3-col m7">
     
       <div style="text-align: center">
-        <h3><?php echo $person['nickname']; ?><span id="star" data-id=<?php echo $person['id_person']; ?>><i class="star fa fa-star" style="color: #abab99;" title="Add to favorite"></i>
+        <h3><?php echo $person['nickname']; ?><span style="margin-left: 5px; cursor: pointer;" id="star" data-id=<?php echo $person['id_person']; ?>><i class="star <?= $isFollowing ? 'yellow' : '' ?> fa fa-star" style="color: #abab99;" title="Add to favorite"></i>
 
 </span></h3>
       </div>
@@ -163,8 +163,8 @@
               id_person_following : <?php echo $user_id; ?>
             },
             success: function (data) {
-              console.log("notrq");
-              $(".star").addClass("yellow");
+              // console.log("notrq");
+              $(".star").toggleClass("yellow");
             },
         });
     });

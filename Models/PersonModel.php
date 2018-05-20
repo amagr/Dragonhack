@@ -30,18 +30,31 @@
 	        }
 	        return $rez;
 		}
-		public function addToFavorite($link, $id_person_following,$id_person_followed) {
 
-			$sql = "INSERT INTO `following`
-				(
-				`id_person_following`,
-				`id_person_followed`)
-				VALUES
-				(".$id_person_following.",
-				".$id_person_followed.")";
-				mysqli_query($link, $sql);
-				
+		public function isFollowing($link, $id_user) {
+			$sql = "SELECT * FROM following where id_person_following=".$_SESSION['user_id']." and id_person_followed = ".$id_user;
+			$row = mysqli_fetch_assoc(mysqli_query($link,$sql));
+			if($row) 
+				return true;
+			return false;
 		}
 
+		public function addToFavorite($link, $id_person_following,$id_person_followed, $isFollowing) {
+
+			if(!$isFollowing) {
+				$sql = "INSERT INTO `following`
+					(
+					`id_person_following`,
+					`id_person_followed`)
+					VALUES
+					(".$id_person_following.",
+					".$id_person_followed.")";
+					mysqli_query($link, $sql);
+			} else {
+				$sql = "DELETE FROM `following` where id_person_following = ".$id_person_following." and id_person_followed = ".$id_person_followed;
+
+				mysqli_query($link, $sql);
+			}
+		}
 	}
 ?>
