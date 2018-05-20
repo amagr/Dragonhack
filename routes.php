@@ -24,7 +24,11 @@
 	} else {
 		if (isset($_GET["param1"])) {
 			if ($_GET["param1"] == "home") {
-				HomeController::index($link);
+				if (isset($_POST['changeInterest'])) {
+					HomeController::changeInterest($link);	
+				} else {
+					HomeController::index($link);
+				}
 			} else if ($_GET["param1"] == "files") {
 				if ($_GET["param2"] == "upload") {
 					FilesController::uploadFiles($link);
@@ -42,7 +46,11 @@
 			}
 
 		} else {
-			HomeController::index($link);
+			if (isset($_POST['changeInterest'])) {
+				HomeController::changeInterest($link);	
+			} else {
+				HomeController::index($link);
+			}
 		}
 	}
 ?>

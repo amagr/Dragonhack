@@ -28,7 +28,44 @@
         <div class="w3-white">
           <button onclick="expandInterests()" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My Interests</button>
           <div id="myInterests" class="w3-container">
-            <p>Some text..</p>
+              <?php if(isset($interests['school'])) { ?>
+                <p><?php echo $interests['school']['name']; ?> </p>
+              <?php } ?>
+
+              <?php if(isset($interests['year'])) { ?>
+                <p><?php echo $interests['year']['name']; ?> </p>
+              <?php } ?>
+
+              <?php if(isset($interests['subject'])) { ?>
+                <p><?php echo $interests['subject']['name']; ?> </p>
+              <?php } ?>
+
+            <p>(<a href="#" id="changeInterest">change</a>)</p>
+            <div id="newInterestContainer" class="w3-container">
+              <form class="form-register" method="post">
+                <select style="margin-bottom: 15px;" id="id_school" name="school">
+                  <option value="0">No school</option>
+                  <?php while($row = mysqli_fetch_assoc($schools)) { ?>
+                    <option <?= (isset($interests['school']) && $interests['school']['id_school'] == $row['id_school']) ? 'selected' : '' ?> value="<?=$row['id_school']?>"><?=$row['name']?></option>
+                  <?php } ?>
+                </select>
+                
+                <select style="margin-bottom: 15px;" id="year" name="year">
+                  <option value="0">No year</option>
+                  <?php for ($i = 1; $i <= 4; $i++) {  ?>
+                    <option <?= (isset($interests['year']) && $interests['year']['id_year'] == $i) ? 'selected' : '' ?> value = "<?=$i?>"> <?=$i?> year </option>
+                  <?php } ?>
+                </select>
+
+                <select style="margin-bottom: 15px;" id="id_subject" name="subject">
+                  <option value="0">No subject</option>
+                  <?php while($row = mysqli_fetch_assoc($subjects)) { ?>
+                    <option <?= (isset($interests['subject']) && $interests['subject']['id_subject'] == $row['id_subject']) ? 'selected' : '' ?> value="<?=$row['id_subject']?>"><?=$row['name']?></option>
+                  <?php } ?>
+                </select>
+                <button name = "changeInterest" class="btn btn-sm btn-primary btn-block" type="submit">Change</button>
+              </form>
+            </div>
           </div>
           <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
           <div id="Demo2" class="w3-hide w3-container">
@@ -222,6 +259,17 @@
     });
 
     $('#myInterests').hide();
+    $('#newInterestContainer').hide();
+
+    $('#changeInterest').on('click', function(e) {
+      e.preventDefault();
+      $('#newInterestContainer').toggle();      
+    });
+
+    // $('#interest_type').on('change', function(e) {
+    //   var type
+    //   console.log()
+    // });
 
     function expandInterests() {
       $('#myInterests').toggle();

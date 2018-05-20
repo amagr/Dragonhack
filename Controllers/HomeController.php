@@ -1,6 +1,8 @@
 <?php
 	include "Models\\HomeModel.php";
 	include "Models\\FilesModel.php";
+	include "Models\\SubjectModel.php";
+	include "Models\\SchoolModel.php";
 
 	class HomeController {
 
@@ -13,7 +15,15 @@
 			$person = $homeModel->getPerson($link, $user_id);
 			$feed = $homeModel->getFeed($link, $user_id);
 
-			$interest = $homeModel->getInterest($link, $user_id);
+			$interests = $homeModel->getInterests($link, $user_id);
+
+			$schoolModel = new SchoolModel();
+			$schools = $schoolModel->getAllSchools($link);
+
+			$subjectModel = new SubjectModel();
+			$subjects = $subjectModel->getAllSubjects($link);
+
+			// print_r($interests);die;
 
 			foreach ($feed as $key => $post) {
 				$names = explode(";", $post['names']);
@@ -23,6 +33,13 @@
 				}
 			} 
 			include "Views/Home/index.php";
+		}
+
+		public static function changeInterest($link) {
+			$homeModel = new HomeModel();
+			$homeModel->changeInterest($link);
+
+			header("Location: /"); 
 		}
 	}
 

@@ -29,7 +29,7 @@
 	        return $rez;
 		}
 
-		public function getInterest($link, $user_id) {
+		public function getInterests($link, $user_id) {
 			$sql = "SELECT MI.*, S.* FROM my_interests MI
 				JOIN school S ON (MI.id_school = S.id_school)
 				WHERE MI.id_person = ".$user_id;
@@ -47,21 +47,40 @@
 			$sql_query = mysqli_query($link,$sql);
 			$year_interest = mysqli_fetch_assoc($sql_query);
 
-			$interest = '';
+			$interests = [];
 
 			if ($school_interest) {
-				$interest = $school_interest['name'];
+				$interests['school']['name'] = $school_interest['name'];
+				$interests['school']['id_school'] = $school_interest['id_school'];
 			}
 
 			if ($subject_interest) {
-				$interest = $subject_interest['name'];
+				$interests['subject']['name'] = $subject_interest['name'];
+				$interests['subject']['id_subject'] = $subject_interest['id_subject'];
 			}
 
 			if ($year_interest['year'] > 0) {
-				$interest = $year_interest['year']. ". year";
+				$interests['year']['name'] = $year_interest['year']. ". year";
+				$interests['year']['id_year'] = $year_interest['year'];
 			}
 
-			return $interest;
+			// print_r($interests);die;
+
+			return $interests;
+		}
+
+		public function changeInterest($link) {
+			// print_r($_POST);die;
+			$id_school = $_POST['school'];
+			$id_subject = $_POST['subject'];
+			$year = $_POST['year'];
+
+			$sql = "UPDATE my_interests
+					SET id_school = ".$id_school.", id_subject = ".$id_subject.", year = ".$year."
+					WHERE id_person = ".$_SESSION['user_id'].";";
+
+			mysqli_query($link, $sql);
+			
 		}
 
 		public function add_like($link){
